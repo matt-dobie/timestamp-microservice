@@ -1,0 +1,14 @@
+{
+  "name": "timestamp-microservice",
+  "version": "1.0.0",
+  "description": "An API that returns a unix timestamp or a natural language date",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Dobie",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
