@@ -5,15 +5,23 @@
 */
 
 
-// Required imports
+// Import express
 var express = require('express');
-var path = require('path');
 
 // Months variable
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-// Create instance of express
+// Create instance of express & port variable
 var app = express();
+var port = process.env.PORT || 8080;
+
+// Serve static index page
+app.use(express.static('public'));
+
+// Route to index page
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+});
 
 // Get call to return JSON date
 app.get('/:dateVal', function(req, res) {
@@ -36,10 +44,25 @@ app.get('/:dateVal', function(req, res) {
   res.end();
 });
 
-// Listen on port 8080
-app.listen(8080, function() {
-  console.log("Listening on port 8080...");
+// Respond not found to all the wrong routes
+app.use(function(req, res, next){
+  res.status(404);
+  res.type('txt').send('Not found');
+});
+
+// Error Middleware
+app.use(function(err, req, res, next) {
+  if (err) {
+    res.status(err.status || 500)
+      .type('txt')
+      .send(err.message || 'SERVER ERROR');
+  }  
 })
+
+// Listen for requests
+app.listen(port, function() {
+  console.log("Listening on port " + port + "...");
+});
 
 // Parse date function
 function parseDate(date) {
