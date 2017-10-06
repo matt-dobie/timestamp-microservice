@@ -41,7 +41,6 @@ app.get('/:dateVal', function(req, res) {
       natural: naturalDate
     });
   }
-  res.end();
 });
 
 // Respond not found to all the wrong routes
